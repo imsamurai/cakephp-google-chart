@@ -35,7 +35,8 @@ class GoogleChartHelper extends AppHelper {
 	 */
 	public function __construct(View $View, $settings = array()) {
 		$settings += array(
-			'version' => '1.0'
+			'version' => '1.0',
+			'apiUrl' => 'https://www.google.com/jsapi'
 		);
 		parent::__construct($View, $settings);
 	}
@@ -47,6 +48,10 @@ class GoogleChartHelper extends AppHelper {
 	 * @return null
 	 */
 	public function load(array $options = array()) {
+		$this->Html->script($this->settings['apiUrl'], array(
+			'inline' => false, 
+			'once' => true
+		));
 		$options += array(
 			'packages' => array(
 				'corechart',

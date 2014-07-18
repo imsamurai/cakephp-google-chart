@@ -27,7 +27,8 @@ class GoogleChartHelperTest extends CakeTestCase {
 		parent::setUp();
 		$this->View = new View();
 		$this->GoogleChart = new GoogleChartHelper($this->View, array(
-			'version' => '1.0'
+			'version' => '1.0',
+			'apiUrl' => 'https://www.google.com/jsapi'
 		));
 	}
 
@@ -56,6 +57,7 @@ class GoogleChartHelperTest extends CakeTestCase {
 				//options
 				array(),
 				//output
+				'<script type="text/javascript" src="https://www.google.com/jsapi"></script>' .
 				'<script type="text/javascript">' .
 				"\n" .
 				'//<![CDATA[' .
@@ -73,6 +75,7 @@ class GoogleChartHelperTest extends CakeTestCase {
 					'packages' => array('motionchart')
 				),
 				//output
+				'<script type="text/javascript" src="https://www.google.com/jsapi"></script>' .
 				'<script type="text/javascript">' .
 				"\n" .
 				'//<![CDATA[' .
