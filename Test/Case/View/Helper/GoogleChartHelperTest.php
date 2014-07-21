@@ -226,21 +226,25 @@ class GoogleChartHelperTest extends CakeTestCase {
 				array(
 					array(
 						'weight' => 1,
-						'name' => 'one'
+						'name' => 'one',
+						'color' => 'red'
 					),
 					array(
 						'weight' => 2,
-						'name' => 'two'
+						'name' => 'two',
+						'color' => 'green'
 					),
 					array(
 						'weight' => 3,
-						'name' => 'three'
+						'name' => 'three',
+						'color' => 'blue'
 					),
 				),
 				//paths
 				array(
 					'name' => '{n}.name',
 					'weight' => '{n}.weight',
+					'{"role": "style"}' => '{n}.color',
 				),
 				//output
 				array(
@@ -254,6 +258,10 @@ class GoogleChartHelperTest extends CakeTestCase {
 							'id' => 'weight',
 							'label' => 'weight',
 							'type' => 'number'
+						),
+						2 => array(
+							'p' => array('role' => 'style'),
+							'type' => 'string'
 						)
 					),
 					'rows' => array(
@@ -266,6 +274,10 @@ class GoogleChartHelperTest extends CakeTestCase {
 								1 => array(
 									'v' => 1,
 									'f' => '1'
+								),
+								2 => array(
+									'v' => 'red',
+									'f' => 'red'
 								)
 							)
 						),
@@ -278,6 +290,10 @@ class GoogleChartHelperTest extends CakeTestCase {
 								1 => array(
 									'v' => 2,
 									'f' => '2'
+								),
+								2 => array(
+									'v' => 'green',
+									'f' => 'green'
 								)
 							)
 						),
@@ -290,6 +306,10 @@ class GoogleChartHelperTest extends CakeTestCase {
 								1 => array(
 									'v' => 3,
 									'f' => '3'
+								),
+								2 => array(
+									'v' => 'blue',
+									'f' => 'blue'
 								)
 							)
 						)

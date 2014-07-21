@@ -151,9 +151,18 @@ class GoogleChartHelper extends AppHelper {
 		$headers = array_keys($dataRaw);
 		foreach ($headers as $header) {
 			$value = isset($dataRaw[$header][0]['v']) ? $dataRaw[$header][0]['v'] : (isset($dataRaw[$header][0]) ? $dataRaw[$header][0] : '');
-			$resultData['cols'][] = array(
-				'id' => $header,
-				'label' => $header,
+			$decodedHeader = json_decode($header, true);
+			if ($decodedHeader) {
+				$col = array(
+					'p' => $decodedHeader
+				);
+			} else {
+				$col = array(
+					'id' => $header,
+					'label' => $header
+				);
+			}
+			$resultData['cols'][] = $col + array(
 				'type' => (gettype($value) !== 'string') ? (strlen((string)$value) === 10 ? 'date' : 'number') : 'string'
 			);
 		}
@@ -184,7 +193,8 @@ class GoogleChartHelper extends AppHelper {
 
 		$divOptions = array('id' => $chartId);
 		if (!empty($options['div'])) {
-			$divOptions += $options['div'];
+			$divOptions = $options['div'] + $divOptions;
+			$chartId = $divOptions['id'];
 			unset($options['div']);
 		}
 		
