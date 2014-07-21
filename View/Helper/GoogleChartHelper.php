@@ -72,13 +72,18 @@ class GoogleChartHelper extends AppHelper {
 	 * @throws InvalidArgumentException
 	 */
 	public function dataFromList(array $list, array $headers = array('Name', 'Value')) {
-		if (count($headers) !== 2) {
-			throw new InvalidArgumentException('There can be only two names for header!');
-		}
 		if (count($list) === 0) {
 			return array();
 		}
-		$data = array($headers);
+		$data = array(array_map(function($header) {
+				$decodedHeader = json_decode($header, true);
+				return $decodedHeader ? $decodedHeader : $header;
+			}, $headers));
+			
+		if (is_integer(array_keys($list)[0])) {
+			return array_merge($data, $list);
+		}
+		
 		foreach ($list as $name => $value) {
 			$data[] = array($name, $value);
 		}

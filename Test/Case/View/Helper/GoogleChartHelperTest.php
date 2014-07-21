@@ -99,9 +99,6 @@ class GoogleChartHelperTest extends CakeTestCase {
 	 * @dataProvider dataFromListProvider
 	 */
 	public function testDataFromList(array $list, array $headers, array $output) {
-		if (count($headers) !== 2) {
-			$this->expectException('InvalidArgumentException');
-		}
 		$data = $this->GoogleChart->dataFromList($list, $headers);
 		$this->assertSame($output, $data);
 	}
@@ -168,6 +165,26 @@ class GoogleChartHelperTest extends CakeTestCase {
 				array('name', 'value'),
 				//output
 				array()
+			),
+			//set #5
+			array(
+				//list
+				array(
+					array('one', 1, 'red'),
+					array('two', 2, 'gray')
+				),
+				//headers
+				array('name', 'value', '{"role": "style"}'),
+				//output
+				array(
+					array('name', 'value', array('role' => 'style')),
+					array(
+						'one', 1, 'red'
+					),
+					array(
+						'two', 2, 'gray'
+					)
+				)
 			),
 		);
 	}
