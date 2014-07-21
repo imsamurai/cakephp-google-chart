@@ -76,10 +76,10 @@ class GoogleChartHelper extends AppHelper {
 			return array();
 		}
 		$data = array(array_map(function($header) {
-				$decodedHeader = json_decode($header, true);
-				return $decodedHeader ? $decodedHeader : $header;
-			}, $headers));
-			
+			$decodedHeader = json_decode($header, true);
+			return $decodedHeader ? $decodedHeader : $header;
+		}, $headers));
+
 		$keys = array_keys($list);
 		if (is_integer($keys[0])) {
 			return array_merge($data, $list);
