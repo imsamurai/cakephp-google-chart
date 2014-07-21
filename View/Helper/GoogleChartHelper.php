@@ -80,7 +80,8 @@ class GoogleChartHelper extends AppHelper {
 				return $decodedHeader ? $decodedHeader : $header;
 			}, $headers));
 			
-		if (is_integer(array_keys($list)[0])) {
+		$keys = array_keys($list);
+		if (is_integer($keys[0])) {
 			return array_merge($data, $list);
 		}
 		
