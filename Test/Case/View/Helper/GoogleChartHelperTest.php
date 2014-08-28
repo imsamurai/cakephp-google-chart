@@ -37,12 +37,25 @@ class GoogleChartHelperTest extends CakeTestCase {
 	 * 
 	 * @param array $options
 	 * @param string $output
+	 * @param bool $inline
 	 * 
 	 * @dataProvider loadProvider
 	 */
-	public function testLoad(array $options, $output) {
-		$this->assertNull($this->GoogleChart->load($options));
-		$this->assertSame($output, $this->View->fetch('script'));
+	public function testLoad(array $options, $output, $inline = null) {
+		if (!is_null($inline)) {
+			$this->GoogleChart->settings['inline'] = $inline;
+		}
+		ob_start();
+		$load = $this->GoogleChart->load($options);
+		$echo = ob_get_clean();
+		if ($inline) {
+			$this->assertSame($output, $echo);
+			$this->assertEmpty($this->View->fetch('script'));
+		} else {
+			$this->assertEmpty($echo);
+			$this->assertSame($output, $this->View->fetch('script'));
+		}
+		$this->assertNull($load);
 	}
 
 	/**
@@ -66,7 +79,8 @@ class GoogleChartHelperTest extends CakeTestCase {
 				"\n" .
 				'//]]>' .
 				"\n" .
-				'</script>'
+				'</script>',
+				null
 			),
 			//set #1
 			array(
@@ -84,7 +98,46 @@ class GoogleChartHelperTest extends CakeTestCase {
 				"\n" .
 				'//]]>' .
 				"\n" .
-				'</script>'
+				'</script>',
+				null
+			),
+			//set #3
+			array(
+				//options
+				array(
+					'packages' => array('motionchart')
+				),
+				//output
+				'<script type="text/javascript" src="https://www.google.com/jsapi"></script>' .
+				'<script type="text/javascript">' .
+				"\n" .
+				'//<![CDATA[' .
+				"\n" .
+				'google.load(\'visualization\', 1.0, {"packages":["motionchart"]});' .
+				"\n" .
+				'//]]>' .
+				"\n" .
+				'</script>',
+				true
+			),
+			//set #4
+			array(
+				//options
+				array(
+					'packages' => array('motionchart')
+				),
+				//output
+				'<script type="text/javascript" src="https://www.google.com/jsapi"></script>' .
+				'<script type="text/javascript">' .
+				"\n" .
+				'//<![CDATA[' .
+				"\n" .
+				'google.load(\'visualization\', 1.0, {"packages":["motionchart"]});' .
+				"\n" .
+				'//]]>' .
+				"\n" .
+				'</script>',
+				false
 			),
 		);
 	}

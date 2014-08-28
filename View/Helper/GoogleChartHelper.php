@@ -36,7 +36,8 @@ class GoogleChartHelper extends AppHelper {
 	public function __construct(View $View, $settings = array()) {
 		$settings += array(
 			'version' => '1.0',
-			'apiUrl' => 'https://www.google.com/jsapi'
+			'apiUrl' => 'https://www.google.com/jsapi',
+			'inline' => $View->request->is('requested') || $View->request->is('ajax')
 		);
 		parent::__construct($View, $settings);
 	}
@@ -45,11 +46,10 @@ class GoogleChartHelper extends AppHelper {
 	 * Loads google chart visualization
 	 * 
 	 * @param array $options
-	 * @return null
 	 */
 	public function load(array $options = array()) {
-		$this->Html->script($this->settings['apiUrl'], array(
-			'inline' => false, 
+		echo $this->Html->script($this->settings['apiUrl'], array(
+			'inline' => $this->settings['inline'], 
 			'once' => true
 		));
 		$options += array(
@@ -59,7 +59,7 @@ class GoogleChartHelper extends AppHelper {
 			)
 		);
 		$script = "google.load('visualization', {$this->settings['version']}, " . json_encode($options) . ");";
-		return $this->Html->scriptBlock($script, array('inline' => false));
+		echo $this->Html->scriptBlock($script, array('inline' => $this->settings['inline']));
 	}
 
 	/**
@@ -222,7 +222,7 @@ class GoogleChartHelper extends AppHelper {
 		$scriptBlock = 'setTimeout(function(){' . $this->JqueryEngine->domReady($script) . '}, 100);';
 
 		return $this->Html->div(null, '', $divOptions) . $this->Html->scriptBlock($scriptBlock, array(
-					'inline' => false
+					'inline' => $this->settings['inline']
 		));
 	}
 
