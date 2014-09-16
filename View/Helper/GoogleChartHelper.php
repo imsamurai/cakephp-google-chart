@@ -218,7 +218,7 @@ class GoogleChartHelper extends AppHelper {
 			$script .= "google.visualization.events.addListener(chart, '$eventName', $eventCallback);";
 		}
 
-		$script .= 'chart.draw(data, ' . json_encode($options) . ');';debug($script);
+		$script .= 'chart.draw(data, ' . json_encode($options) . ');';
 		$scriptBlock = 'setTimeout(function(){' . $this->JqueryEngine->domReady($script) . '}, 100);';
 
 		return $this->Html->div(null, '', $divOptions) . $this->Html->scriptBlock($scriptBlock, array(
