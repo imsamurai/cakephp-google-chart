@@ -205,7 +205,7 @@ class GoogleChartHelper extends AppHelper {
 		}
 		
 		$isDataTable = isset($data['cols']) && isset($data['rows']);
-		debug($this->_encode($data));
+		
 		if (!$isDataTable) {
 			$script = 'var data = new google.visualization.arrayToDataTable(' . $this->_encode($data) . ');';
 		} else {
