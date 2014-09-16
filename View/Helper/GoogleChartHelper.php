@@ -169,7 +169,7 @@ class GoogleChartHelper extends AppHelper {
 				);
 			}
 			$resultData['cols'][] = $col + array(
-				'type' => (gettype($value) !== 'string') ? (strlen((string)$value) === 10 ? 'date' : 'number') : 'string'
+				'type' => (gettype($value) !== 'string') ? (strlen((string)$value) === 10 ? 'datetime' : 'number') : 'string'
 			);
 		}
 		
@@ -205,7 +205,7 @@ class GoogleChartHelper extends AppHelper {
 		}
 		
 		$isDataTable = isset($data['cols']) && isset($data['rows']);
-		
+		debug($this->_encode($data));
 		if (!$isDataTable) {
 			$script = 'var data = new google.visualization.arrayToDataTable(' . $this->_encode($data) . ');';
 		} else {
@@ -218,7 +218,7 @@ class GoogleChartHelper extends AppHelper {
 			$script .= "google.visualization.events.addListener(chart, '$eventName', $eventCallback);";
 		}
 
-		$script .= 'chart.draw(data, ' . json_encode($options) . ');';
+		$script .= 'chart.draw(data, ' . json_encode($options) . ');';debug($script);
 		$scriptBlock = 'setTimeout(function(){' . $this->JqueryEngine->domReady($script) . '}, 100);';
 
 		return $this->Html->div(null, '', $divOptions) . $this->Html->scriptBlock($scriptBlock, array(

@@ -450,7 +450,7 @@ class GoogleChartHelperTest extends CakeTestCase {
 						4 => array(
 							'id' => 'three',
 							'label' => 'three',
-							'type' => 'date'
+							'type' => 'datetime'
 						)
 					),
 					'rows' => array(
@@ -632,7 +632,7 @@ class GoogleChartHelperTest extends CakeTestCase {
 						4 => array(
 							'id' => 'three',
 							'label' => 'three',
-							'type' => 'date'
+							'type' => 'datetime'
 						)
 					),
 					'rows' => array(
@@ -723,7 +723,7 @@ class GoogleChartHelperTest extends CakeTestCase {
 				'function(){' .
 				'$(document).ready(' .
 				'function () {' .
-				'var data = new google.visualization.DataTable({"cols":[{"id":"name","label":"name","type":"string"},{"id":"weight","label":"weight","type":"number"},{"id":"one","label":"one","type":"number"},{"id":"two","label":"two","type":"number"},{"id":"three","label":"three","type":"date"}],"rows":[{"c":[{"v":"one","f":"one"},{"v":1,"f":"1"},{"v":1,"f":"one"},{"v":2,"f":"one"},{"v":new Date(3333333333000),"f":"one"}]},{"c":[{"v":"two","f":"two"},{"v":11,"f":"11"},{"v":11,"f":"two"},{"v":22,"f":"two"},{"v":new Date(3333333333000),"f":"two"}]},{"c":[{"v":"three","f":"three"},{"v":111,"f":"111"},{"v":111,"f":"three"},{"v":222,"f":"three"},{"v":new Date(3333333333000),"f":"three"}]}]});' .
+				'var data = new google.visualization.DataTable({"cols":[{"id":"name","label":"name","type":"string"},{"id":"weight","label":"weight","type":"number"},{"id":"one","label":"one","type":"number"},{"id":"two","label":"two","type":"number"},{"id":"three","label":"three","type":"datetime"}],"rows":[{"c":[{"v":"one","f":"one"},{"v":1,"f":"1"},{"v":1,"f":"one"},{"v":2,"f":"one"},{"v":new Date(3333333333000),"f":"one"}]},{"c":[{"v":"two","f":"two"},{"v":11,"f":"11"},{"v":11,"f":"two"},{"v":22,"f":"two"},{"v":new Date(3333333333000),"f":"two"}]},{"c":[{"v":"three","f":"three"},{"v":111,"f":"111"},{"v":111,"f":"three"},{"v":222,"f":"three"},{"v":new Date(3333333333000),"f":"three"}]}]});' .
 				'var chart = new google.visualization.BarChart(document.getElementById("%s"));' .
 				'chart.draw(data, []);' .
 				'}' .
